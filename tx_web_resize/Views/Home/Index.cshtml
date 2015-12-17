@@ -1,0 +1,65 @@
+﻿@using TXTextControl.Web
+@using TXTextControl.Web.MVC
+
+<style>
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI';
+    }
+
+    div.custom-bar {
+        background-color: black;
+        height: 50px;
+        width: 100%;
+        color: white;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    div.editor {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: 300px;
+    }
+
+</style>
+
+<div class="custom-bar">
+    Top Bar
+</div>
+
+<div class="editor">
+    @Html.TXTextControl().TextControl(settings =>
+    {
+        settings.Dock = DockStyle.Window;
+    }
+    ).Render()
+</div>
+
+<script>
+
+    // re-arrange TextControl to fill browser Window
+    function arrangeTextControl() {
+        $(".editor").children().first().css("top", "50px");
+        $(".editor").children().first().css("height", window.innerHeight - 50 + "px");
+    }
+    
+    // attached resize events and re-arrange the controls
+    if (window.attachEvent) {
+        window.attachEvent('onresize', function () {
+            arrangeTextControl();
+        });
+    }
+    else if (window.addEventListener) {
+        window.addEventListener('resize', function () {
+            arrangeTextControl();
+        }, true);
+    }
+
+    arrangeTextControl();
+
+</script>
